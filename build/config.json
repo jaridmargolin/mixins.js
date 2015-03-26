@@ -1,0 +1,8 @@
+{
+  "fileName": "mixins",
+  "globalAlias": "mixins",
+  "exclude": ["underscore"],
+  "dependencies": {
+    "default": ["underscore"]
+  }
+}

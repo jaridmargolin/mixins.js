@@ -1,0 +1,13 @@
+{
+  "name": "mixins.js ",
+  "version": "0.0.1",
+  "dependencies": {},
+  "ignore": [
+    "**/.*",
+    "Gruntfile.js",
+    "src",
+    "docs",
+    "test",
+    "build"
+  ]
+}
