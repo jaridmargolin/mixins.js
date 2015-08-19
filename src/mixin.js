@@ -62,7 +62,10 @@ Mixin.prototype.mixin = function (mixin) {
  * @param {string} key - Property name (key).
  */
 Mixin.prototype.merge = function (val, key) {
-  if (_.isFunction(val)) {
+  if (!(key in this.obj)) {
+    this.obj[key] = val;
+
+  } else if (_.isFunction(val)) {
     this.mergeFunction(val, key);
 
   } else if (_.isArray(val)) {
@@ -70,9 +73,6 @@ Mixin.prototype.merge = function (val, key) {
 
   } else if (_.isObject(val)) {
     this.mergeObject(val, key);
-
-  } else if (!(key in this.obj)) {
-    this.obj[key] = val;
   }
 };
 

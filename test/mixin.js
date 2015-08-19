@@ -35,7 +35,7 @@ describe('mixin.js', function () {
 
     this.objMethod = orderedStub(0, 0);
 
-    this.m1 = { mtd: orderedStub(1, 1), arr: [1], obj: { prop1: 1 }, num: 1 };
+    this.m1 = { mtd: orderedStub(1, 1), arr: [1], obj: { prop1: 1 }, num: 1, notMerged: {} };
     this.m2 = { mtd: orderedStub(2), arr: [0, 2], obj: { prop: 2, prop2: 2 }, num2: 2  };
 
     this.mixins  = [this.m1, 'm2'];
@@ -139,6 +139,10 @@ describe('mixin.js', function () {
 
     // assert primative value added
     assert.equal(this.instance.num2, 2);
+  });
+
+  it('Should only merge if property already exists on object.', function () {
+    assert.equal(this.instance.notMerged,  this.m1.notMerged);
   });
 
 });
