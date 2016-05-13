@@ -1,7 +1,5 @@
 /*!
  * mixins.js
- * 
- * Copyright (c) 2014
  */
 
 define(function (require) {
@@ -11,29 +9,61 @@ define(function (require) {
  * dependencies
  * ---------------------------------------------------------------------------*/
 
-var _     = require('underscore');
-var Mixin = require('./mixin');
-
+var _ = require('underscore');
+var Mixer = require('./mixer');
+var mixin = require('./mixin');
 
 /* -----------------------------------------------------------------------------
  * mixins
  * ---------------------------------------------------------------------------*/
 
+/**
+ * @global
+ * @public
+ * @namespace mixins
+ *
+ * @desc Utilities to mix objects with fine grain collision handling control.
+ */
 return {
 
-  globals : {},
-  Mixin   : Mixin,
+  Mixer: Mixer,
+  mixin: mixin,
 
   /**
-   * Merge objects while automatically handling collisions.
+   * @public
+   * @memberof mixins
+   *
+   * @desc Merge objects while automatically handling collisions.
+   *
+   * @example
+   * var myObject = {
+   *   ui: {
+   *     '$btn': '.obj-btn'
+   *   },
+   *   method: function () {}
+   * };
+   *
+   * var myMixin = {
+   *   ui: mixins.mixin('defaults', {
+   *     '$btn': '.default-btn',
+   *     '$input': '.default-input'
+   *   })
+   * };
+   *
+   * mixins.mix(myObject, myMixin);
+   * // MyObject.ui === {
+   * //   '$btn': '.obj-btn', 
+   * //   '$input': '.default-input'
+   * // }
    *
    * @param {Object} Obj - Object to add mixins to.
+   * @param {Array} mixins - Array of mixins to apply.
    */
-  mixin: function (Obj) {
+  mix: function (Obj, mixins) {
     var mix = _.chain(arguments).toArray().rest().flatten().value();
-    var mixin  = new this.Mixin(Obj, mix, this.globals);
+    var mixin  = new this.Mixer(Obj, mix);
 
-    return Obj;
+    return mixin.Obj;
   }
 
 };
