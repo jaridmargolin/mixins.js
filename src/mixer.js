@@ -156,6 +156,7 @@ Mixer.prototype.createComposite = function (collisions, key) {
     var parent = this.Obj;
     this.Obj = this.composeFn(collisions, originalFn);
     this.Obj.prototype = this.obj;
+    this.Obj.prototype.constructor = this.Obj;
     _.extend(this.Obj, parent);
   } else {
     this.obj[key] = this.composeFn(collisions, originalFn);

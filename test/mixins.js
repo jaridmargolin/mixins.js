@@ -264,6 +264,7 @@ describe('mixins.js', function () {
       });
 
       var mixed = new Mixed();
+      assert.equal(Mixed, Mixed.prototype.constructor);
       assert.deepEqual(result, [4, 2, 1, 3]);
       assert.isFunction(mixed.method);
     });
