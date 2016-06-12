@@ -64,7 +64,7 @@ Mixer.prototype.merge = function (val, key) {
   if (key in this.obj && !val.__mixin) {
     return;
 
-  } else if (!(key in this.obj)) {
+  } else if (!(key in this.obj) || val.__mixin === 'clobber') {
     this.obj[key] = val;
 
   } else if (_.isFunction(val)) {

@@ -86,6 +86,18 @@ describe('mixins.js', function () {
       assert.equal(Mixed.prop.key, 'val1');
     });
 
+    it('Should clobber object.', function () {
+      var Obj = {
+        prop: { key: 'val1' }
+      };
+
+      var Mixed = mixins.mix(Obj, {
+        prop: mixin('clobber', { key: 'val2' })
+      });
+
+      assert.equal(Mixed.prop.key, 'val2');
+    });
+
     it('Should extend the object.', function () {
       var Obj = {
         prop: { key: 'val1' }
@@ -134,6 +146,18 @@ describe('mixins.js', function () {
       });
 
       assert.deepEqual(Mixed.prop, [1]);
+    });
+
+    it('Should clobber array.', function () {
+      var Obj = {
+        prop: [1]
+      };
+
+      var Mixed = mixins.mix(Obj, {
+        prop: mixin('clobber', [2])
+      });
+
+      assert.deepEqual(Mixed.prop, [2]);
     });
 
     it('Should prepend array values.', function () {
@@ -199,6 +223,20 @@ describe('mixins.js', function () {
 
       Mixed.method();
       assert.deepEqual(result, [1]);
+    });
+
+    it('Should clobber method.', function () {
+      var result = [];
+      var Obj = {
+        method: function () { result.push(1); }
+      };
+
+      var Mixed = mixins.mix(Obj, {
+        method: mixin('clobber', function () { result.push(2); })
+      });
+
+      Mixed.method();
+      assert.deepEqual(result, [2]);
     });
 
     it('Should compose fns before the original fn.', function () {
