@@ -184,7 +184,7 @@ Mixer.prototype.composeFn = function (collisions, originalFn) {
     }, this);
 
     var decorators = _.where(collisions, { __mixin: 'decorate' });
-    return decorate(decorators, _.bind(function () {
+    return decorate(decorators, function () {
       var args = arguments;
       var before = _.where(collisions, { __mixin: 'before' });
       var beforeReturn = callFnGroup(before.reverse(), args);
@@ -199,7 +199,7 @@ Mixer.prototype.composeFn = function (collisions, originalFn) {
       } else if (!_.isUndefined(beforeReturn)) {
         return beforeReturn;
       }
-    }, this))();
+    }).apply(this, arguments);
   };
 };
 

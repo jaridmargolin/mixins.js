@@ -239,20 +239,20 @@ describe('mixins.js', function () {
       assert.deepEqual(result, [2]);
     });
 
-    it('Should decorate the composed functions.', function () {
-      var result = [];
+    it.only('Should decorate the composed functions.', function () {
       var Obj = {
-        method: function () { result.push(3); }
+        result: [],
+        method: function () { this.result.push(3); }
       };
 
       var Mixed = mixins.mix(Obj, {
-        method: mixin('decorate', function (fn) { result.push(1);  fn.apply(this, arguments); result.push(4); })
+        method: mixin('decorate', function (fn) { this.result.push(1);  fn.apply(this, arguments); this.result.push(4); })
       }, {
-        method: mixin('decorate', function (fn) { result.push(2); fn.apply(this, arguments); })
+        method: mixin('decorate', function (fn) { this.result.push(2); fn.apply(this, arguments); })
       });
 
       Mixed.method();
-      assert.deepEqual(result, [1, 2, 3, 4]);
+      assert.deepEqual(Mixed.result, [1, 2, 3, 4]);
     });
 
     it('Should compose fns before the original fn.', function () {
