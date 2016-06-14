@@ -22,6 +22,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "underscore": "~1.8.3"
+    "underscore": "~1.8.3",
+    "underscore-companion.js": "~0.1.0"
   }
 }

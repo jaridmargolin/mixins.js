@@ -1,5 +1,6 @@
 {
-  "underscore" : "/node_modules/underscore/underscore",
-  "proclaim"   : "/node_modules/proclaim/lib/proclaim",
-  "sinon"      : "/node_modules/sinon/pkg/sinon"
+  "underscore": "/node_modules/underscore/underscore",
+  "underscore-companion": "/node_modules/underscore-companion.js/dist/amd",
+  "proclaim": "/node_modules/proclaim/lib/proclaim",
+  "sinon": "/node_modules/sinon/pkg/sinon"
 }

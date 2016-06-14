@@ -10,6 +10,7 @@ define(function (require) {
  * ---------------------------------------------------------------------------*/
 
 var _ = require('underscore');
+var decorate = require('underscore-companion/decorate');
 
 
 /* -----------------------------------------------------------------------------
@@ -182,20 +183,23 @@ Mixer.prototype.composeFn = function (collisions, originalFn) {
       }, undefined, this);
     }, this);
 
-    var args = arguments;
-    var before = _.where(collisions, { __mixin: 'before' });
-    var beforeReturn = callFnGroup(before.reverse(), args);
-    var originalReturn = originalFn.apply(this, args);
-    var after = _.where(collisions, { __mixin: 'after' });
-    var afterReturn = callFnGroup(after, args);
+    var decorators = _.where(collisions, { __mixin: 'decorate' });
+    return decorate(decorators, _.bind(function () {
+      var args = arguments;
+      var before = _.where(collisions, { __mixin: 'before' });
+      var beforeReturn = callFnGroup(before.reverse(), args);
+      var originalReturn = originalFn.apply(this, args);
+      var after = _.where(collisions, { __mixin: 'after' });
+      var afterReturn = callFnGroup(after, args);
 
-    if (!_.isUndefined(afterReturn)) {
-      return afterReturn;
-    } else if (!_.isUndefined(originalReturn)) {
-      return originalReturn;
-    } else if (!_.isUndefined(beforeReturn)) {
-      return beforeReturn;
-    }
+      if (!_.isUndefined(afterReturn)) {
+        return afterReturn;
+      } else if (!_.isUndefined(originalReturn)) {
+        return originalReturn;
+      } else if (!_.isUndefined(beforeReturn)) {
+        return beforeReturn;
+      }
+    }, this))();
   };
 };
 
