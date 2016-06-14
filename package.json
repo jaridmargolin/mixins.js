@@ -2,7 +2,7 @@
   "name": "mixins.js",
   "description": "Merge objects with automatic collision handling.",
   "author": "Jarid Margolin <jaridmargolin@gmail.com>",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "homepage": "https://github.com/jaridmargolin/mixins.js",
   "repository": {
     "type": "git",
