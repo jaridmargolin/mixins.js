@@ -62,8 +62,13 @@ Mixer.prototype.mixin = function (mixin) {
  * @param {string} key - Property name (key).
  */
 Mixer.prototype.merge = function (val, key) {
-  if (key in this.obj && !val.__mixin) {
+  var hasDefinedMixin = val && val.__mixin;
+
+  if (this.obj.hasOwnProperty(key) && !hasDefinedMixin) {
     return;
+
+  } else if (!this.obj.hasOwnProperty(key) && !hasDefinedMixin) {
+    this.obj[key] = val;
 
   } else if (!(key in this.obj) || val.__mixin === 'clobber') {
     this.obj[key] = val;

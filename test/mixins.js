@@ -74,6 +74,17 @@ describe('mixins.js', function () {
 
   describe('merge objects', function () {
 
+    it('Should clobber items in prototype chain.', function () {
+      var Obj = function () {};
+      Obj.prototype.prop = { key: 'val1' };
+
+      var Mixed = mixins.mix(new Obj(), {
+        prop: { key: 'val2' }
+      });
+
+      assert.equal(Mixed.prop.key, 'val2');
+    });
+
     it('Should get clobbered by default.', function () {
       var Obj = {
         prop: { key: 'val1' }
@@ -239,7 +250,7 @@ describe('mixins.js', function () {
       assert.deepEqual(result, [2]);
     });
 
-    it.only('Should decorate the composed functions.', function () {
+    it('Should decorate the composed functions.', function () {
       var Obj = {
         result: [],
         method: function () { this.result.push(3); }
